@@ -25,6 +25,5 @@ int main() {
 		- sumx2 * sumx2 * sumy - sumx * sumx * sumx2y - n * sumx3 * sumxy;
 	a = da / d; b = db / d; c = dc / d;
 	printf("拟合方程为   y=%9.6fx*x+%9.6fx+%9.6f", a, b, c);
-	printf("拟合方程为   y=%9.6fx*x+%9.6fx+%9.6f", a, b, c);
 
 }

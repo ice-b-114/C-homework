@@ -17,8 +17,8 @@ void newton(double (*f1)(double), double (*f2)(double)) {
 		if (y == 0) { printf("f'(x0)=0\n"); return; }
 		x1 = x0 - (*f1)(x0) / y;
 		k++;
-		if (fabs(x1 - x0) < e && fabs((*f1)(x1) < e) {
-			printf("x1=%-10.5lf y(x1)=%-10.5lf k=%d\n",x1,(*f1)(x1),k);
+		if (fabs(x1 - x0) < e && fabs((*f1)(x1) < e)) {
+			printf("x1=%-10.5lf y(x1)=%-10.5lf k=%d\n", x1, (*f1)(x1), k);
 			break;
 		}
 		x0=x1;
