@@ -45,6 +45,7 @@ int main() {
 		}
 		else {
 			printf("Error input!");
+			printf("Error input!");
 		}
 	}
 }
