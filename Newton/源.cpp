@@ -9,7 +9,7 @@ double f2(double x) {
 	return x;
 }
 void newton(double (*f1)(double), double (*f2)(double)) {
-	double x0, x1, e, y; int k = 0, n;
+	double x0, x1, e, y; int k = 0;//, n;
 	printf("Please input x0 and e:");
 	scanf("%lf%lf", &x0, &e);
 	//printf("Please input N:");
@@ -26,6 +26,6 @@ void newton(double (*f1)(double), double (*f2)(double)) {
 		x0=x1;
 	}
 }
-void main() {
+int main() {
 	newton(f1,f2);
 }
