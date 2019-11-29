@@ -1,20 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-int m, n, i, j;
-double** array, * b;
+int n, i, j;
+float** array, * b;
+//两个结果显示函数
 void showarray() {
-	int i, j;
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < m; j++) {
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
 			printf("%lf    ", array[i][j]);
 		}
 		printf("=%lf\n", b[i]);
 	}
 }
+void showresult() {
+	for (i = 0; i < n; i++) {
+		printf("b[%d]=%f    ", i, b[i]);
+	}
+}
 //列主元素函数
 void selectmainelement(int k) {
-	double d = array[k][k],temp;
+	float d = array[k][k],temp;
 	int l = k;
 	for (i = k + 1; i < n - 1; i++) {
 		if (fabs(array[i][k]) > fabs(d)) {
@@ -25,7 +30,7 @@ void selectmainelement(int k) {
 			exit(0);
 		}
 		if (l != k) {
-			for (j = k; j < n - 1; j++) {
+			for (j = k; j < n; j++) {
 				temp = array[l][j]; array[l][j] = array[k][j]; array[k][j] = temp;
 			}
 			temp = b[k]; b[k] = b[l]; b[l] = temp;
@@ -36,7 +41,7 @@ void gauss() {
 	int flag;
 	while (true)//是否使用列主元素
 	{
-		printf("1.Use:");
+		printf("1.Use seletionmainelement method 2.Use nothing:");
 		scanf("%d",&flag);
 		if (flag == 1 || flag == 2) {
 			break;
@@ -55,7 +60,7 @@ void gauss() {
 		//处理剩下的方程
 		array[k][k] = 1;
 		for (i = k + 1; i <= n - 1; i++) {
-			for (j = k + 1; j <= n; j++) {
+			for (j = k + 1; j <= n-1; j++) {
 				array[i][j] = array[i][j] - array[i][k] * array[k][j];
 			}
 			b[i] = b[i] - array[i][k] * b[k];
@@ -63,10 +68,10 @@ void gauss() {
 		}
 	}
 	//回代结果，输出
-	double sum;
+	float sum;
 	//处理最后一条方程
-	b[n-1] = b[n-1] / array[m-1][n-1];
-	array[m - 1][n - 1] = 1;
+	b[n-1] = b[n-1] / array[n-1][n-1];
+	array[n - 1][n - 1] = 1;
 	for (i = n - 2; i >= 0; i--) {
 		sum = 0;
 		for (j = i + 1; j <= n - 1; j++) {
@@ -75,23 +80,24 @@ void gauss() {
 		b[i] = b[i] - sum;
 	}
 	showarray();
+	showresult();
 }
 int main() {
 	//输入线性方程组
-	printf("Please enter rows and cols:");
-	scanf("%d%d", &m,&n);
-	array = (double**)calloc(m, sizeof(double));
-	b = (double*)calloc(n, sizeof(double));
-	for (i = 0; i < m; i++) {
-		array[i] = (double*)calloc(n, sizeof(double));
+	printf("Please enter the dimension of linear equation system:");
+	scanf("%d",&n);
+	array = (float**)calloc(n, sizeof(float));
+	b = (float*)calloc(n, sizeof(float));
+	for (i = 0; i < n; i++) {
+		array[i] = (float*)calloc(n, sizeof(float));
 	}
-	for (i = 0; i < m; i++) {
-		for (j = 0; j < m; j++) {
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < n; j++) {
 			printf("Please enter value of (%d,%d):", i, j);
-			scanf("%lf", &array[i][j]);
+			scanf("%f", &array[i][j]);
 		}
 		printf("Please enter right const result of row %d:",i+1);
-		scanf("%lf", &b[i]);
+		scanf("%f", &b[i]);
 	}
 	gauss();
 }
